@@ -1,0 +1,21 @@
+name: Sync upstream tags
+
+on:
+  push:
+    branches: [main]
+
+permissions:
+  contents: write
+
+jobs:
+  sync-tags:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: 同步上游 tags
+        run: |
+          git fetch https://github.com/morluto/rea.git --tags
+          git push origin --tags
